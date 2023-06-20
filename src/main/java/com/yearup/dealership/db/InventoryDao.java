@@ -33,6 +33,22 @@ public class InventoryDao {
     }
 
     public void removeVehicleFromInventory(String vin) {
-        // TODO: Implement the logic to remove a vehicle from the inventory
+        String query = "Delete from inventory where vin = ?";
+
+
+        try(Connection connect = dataSource.getConnection();
+            PreparedStatement PS = connect.prepareStatement(query);){
+
+            PS.setString(1, vin);
+
+
+            int rows = PS.executeUpdate();
+            System.out.println(rows + "rows affected!");
+
+
+        }  catch (Exception madness){
+            madness.printStackTrace();
+        }
     }
 }
+
